@@ -1,7 +1,7 @@
 export const PLANO = {
   nome: "Nina Fit IA — Mensal",
-  valor: 39.9,
-  valorFormatado: "R$ 39,90",
+  valor: 29.9,
+  valorFormatado: "R$ 29,90",
   ciclo: "por mês",
   descricao: "Acesso ilimitado à Nina: dieta, treino e ajustes na sua rotina.",
   beneficios: [
