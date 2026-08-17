@@ -14,7 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          asaas_customer_id: string | null
+          asaas_subscription_id: string | null
+          criado_em: string
+          data_proxima_cobranca: string | null
+          email: string | null
+          id: string
+          nome: string | null
+          status_assinatura: string
+        }
+        Insert: {
+          asaas_customer_id?: string | null
+          asaas_subscription_id?: string | null
+          criado_em?: string
+          data_proxima_cobranca?: string | null
+          email?: string | null
+          id: string
+          nome?: string | null
+          status_assinatura?: string
+        }
+        Update: {
+          asaas_customer_id?: string | null
+          asaas_subscription_id?: string | null
+          criado_em?: string
+          data_proxima_cobranca?: string | null
+          email?: string | null
+          id?: string
+          nome?: string | null
+          status_assinatura?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
