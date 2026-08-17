@@ -12,7 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedAcessoBloqueadoRouteImport } from './routes/_authenticated/acesso-bloqueado'
 import { Route as AuthenticatedAssinarRouteImport } from './routes/_authenticated/assinar'
+import { Route as AuthenticatedContaRouteImport } from './routes/_authenticated/conta'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as ApiPublicAsaasWebhookRouteImport } from './routes/api/public/asaas-webhook'
 
@@ -30,9 +32,20 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAcessoBloqueadoRoute =
+  AuthenticatedAcessoBloqueadoRouteImport.update({
+    id: '/acesso-bloqueado',
+    path: '/acesso-bloqueado',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAssinarRoute = AuthenticatedAssinarRouteImport.update({
   id: '/assinar',
   path: '/assinar',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedContaRoute = AuthenticatedContaRouteImport.update({
+  id: '/conta',
+  path: '/conta',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
@@ -49,14 +62,18 @@ const ApiPublicAsaasWebhookRoute = ApiPublicAsaasWebhookRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/acesso-bloqueado': typeof AuthenticatedAcessoBloqueadoRoute
   '/assinar': typeof AuthenticatedAssinarRoute
+  '/conta': typeof AuthenticatedContaRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/api/public/asaas-webhook': typeof ApiPublicAsaasWebhookRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/acesso-bloqueado': typeof AuthenticatedAcessoBloqueadoRoute
   '/assinar': typeof AuthenticatedAssinarRoute
+  '/conta': typeof AuthenticatedContaRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/api/public/asaas-webhook': typeof ApiPublicAsaasWebhookRoute
 }
@@ -65,22 +82,39 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/_authenticated/acesso-bloqueado': typeof AuthenticatedAcessoBloqueadoRoute
   '/_authenticated/assinar': typeof AuthenticatedAssinarRoute
+  '/_authenticated/conta': typeof AuthenticatedContaRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/api/public/asaas-webhook': typeof ApiPublicAsaasWebhookRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/auth' | '/assinar' | '/dashboard' | '/api/public/asaas-webhook'
+    | '/'
+    | '/auth'
+    | '/acesso-bloqueado'
+    | '/assinar'
+    | '/conta'
+    | '/dashboard'
+    | '/api/public/asaas-webhook'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/assinar' | '/dashboard' | '/api/public/asaas-webhook'
+  to:
+    | '/'
+    | '/auth'
+    | '/acesso-bloqueado'
+    | '/assinar'
+    | '/conta'
+    | '/dashboard'
+    | '/api/public/asaas-webhook'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/_authenticated/acesso-bloqueado'
     | '/_authenticated/assinar'
+    | '/_authenticated/conta'
     | '/_authenticated/dashboard'
     | '/api/public/asaas-webhook'
   fileRoutesById: FileRoutesById
@@ -115,11 +149,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/acesso-bloqueado': {
+      id: '/_authenticated/acesso-bloqueado'
+      path: '/acesso-bloqueado'
+      fullPath: '/acesso-bloqueado'
+      preLoaderRoute: typeof AuthenticatedAcessoBloqueadoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/assinar': {
       id: '/_authenticated/assinar'
       path: '/assinar'
       fullPath: '/assinar'
       preLoaderRoute: typeof AuthenticatedAssinarRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/conta': {
+      id: '/_authenticated/conta'
+      path: '/conta'
+      fullPath: '/conta'
+      preLoaderRoute: typeof AuthenticatedContaRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/dashboard': {
@@ -140,12 +188,16 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAcessoBloqueadoRoute: typeof AuthenticatedAcessoBloqueadoRoute
   AuthenticatedAssinarRoute: typeof AuthenticatedAssinarRoute
+  AuthenticatedContaRoute: typeof AuthenticatedContaRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAcessoBloqueadoRoute: AuthenticatedAcessoBloqueadoRoute,
   AuthenticatedAssinarRoute: AuthenticatedAssinarRoute,
+  AuthenticatedContaRoute: AuthenticatedContaRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
 }
 
