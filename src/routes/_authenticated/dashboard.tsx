@@ -47,14 +47,13 @@ function DashboardPage() {
             </p>
           )}
           <div className="flex-1">
-            <iframe
-              title="Chat com a Nina"
-              src="https://app.gptmaker.ai/widget/3F7BFB0E3763533B3176862D20D40BD5/iframe"
-              width="100%"
-              style={{ height: "100%", minHeight: 700 }}
-              allow="microphone;"
-              frameBorder="0"
-            />
+          <iframe
+            src="https://app.gptmaker.ai/widget/3F7BFB0E3763533B3176862D20D40BD5/iframe"
+            width="100%"
+            style={{ height: "100%", minHeight: "700px" }}
+            allow="microphone;"
+            frameBorder="0"
+          />
           </div>
         </>
       ) : (
