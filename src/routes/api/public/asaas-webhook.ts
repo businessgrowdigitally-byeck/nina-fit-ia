@@ -50,14 +50,16 @@ export const Route = createFileRoute("/api/public/asaas-webhook")({
 
         try {
           const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-          const update: Record<string, unknown> = { status_assinatura: novoStatus };
+          const update: { status_assinatura: string; data_proxima_cobranca?: string } = {
+            status_assinatura: novoStatus,
+          };
 
           if (novoStatus === "ativo") {
             const proxima =
               body.subscription?.nextDueDate ??
               body.payment?.nextDueDate ??
               proximaCobrancaPadrao(body.payment?.dueDate);
-            if (proxima) update["data_proxima_cobranca"] = proxima;
+            if (proxima) update.data_proxima_cobranca = proxima;
           }
 
           const query = supabaseAdmin.from("profiles").update(update);
