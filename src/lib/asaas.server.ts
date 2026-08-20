@@ -20,9 +20,22 @@ async function asaasFetch<T>(path: string, init?: RequestInit): Promise<T> {
   const text = await res.text();
   if (!res.ok) {
     console.error("Asaas error", path, res.status, text);
-    throw new Error("Não conseguimos falar com o sistema de pagamento agora.");
+    throw new Error(explicaErroAsaas(res.status));
   }
   return (text ? JSON.parse(text) : {}) as T;
+}
+
+// A causa real fica no log do servidor, que o usuário não vê. Traz o suficiente para a
+// tela para dar de diagnosticar sem precisar abrir log — sem vazar chave nem corpo da resposta.
+function explicaErroAsaas(status: number) {
+  const ambiente = baseUrl().includes("sandbox") ? "sandbox" : "produção";
+  if (status === 401 || status === 403) {
+    return `O Asaas recusou a chave (${status}). Confira se a chave e a URL são do mesmo ambiente — a URL configurada é de ${ambiente}.`;
+  }
+  if (status >= 500) {
+    return `O Asaas está fora do ar no momento (${status}). Tente de novo em alguns minutos.`;
+  }
+  return `O Asaas recusou a requisição (${status}).`;
 }
 
 type AsaasList<T> = { data: T[] };
